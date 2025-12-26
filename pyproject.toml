@@ -40,10 +40,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/sherozshaikh/py_logex"
-Documentation = "https://github.com/sherozshaikh/py_logex#readme"
-Repository = "https://github.com/sherozshaikh/py_logex"
-"Bug Tracker" = "https://github.com/sherozshaikh/py_logex/issues"
+Homepage = "https://github.com/sherozshaikh/py-logex"
+Documentation = "https://github.com/sherozshaikh/py-logex#readme"
+Repository = "https://github.com/sherozshaikh/py-logex"
+"Bug Tracker" = "https://github.com/sherozshaikh/py-logex/issues"
 
 [project.scripts]
 py_logex = "py_logex.cli:main"
