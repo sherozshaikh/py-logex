@@ -1,13 +1,13 @@
-# py-logex
+# py-logex-enhanced
 
 **Simple, powerful logging with built-in exception handling and YAML configuration**
 
-[![PyPI version](https://badge.fury.io/py/py-logex.svg)](https://badge.fury.io/py/py-logex)
-[![Python Versions](https://img.shields.io/pypi/pyversions/py-logex.svg)](https://pypi.org/project/py-logex/)
+[![PyPI version](https://badge.fury.io/py/py-logex-enhanced.svg)](https://badge.fury.io/py/py-logex-enhanced)
+[![Python Versions](https://img.shields.io/pypi/pyversions/py-logex-enhanced.svg)](https://pypi.org/project/py-logex-enhanced/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-`py-logex` is a lightweight wrapper around [loguru](https://github.com/Delgan/loguru) that adds YAML-based configuration and enhanced exception handling, making it perfect for production environments.
+`py-logex-enhanced` is a lightweight wrapper around [loguru](https://github.com/Delgan/loguru) that adds YAML-based configuration and enhanced exception handling, making it perfect for production environments.
 
 ---
 
@@ -26,7 +26,7 @@
 ## 📦 Installation
 
 ```bash
-pip install py-logex
+pip install py-logex-enhanced
 ```
 
 **Requirements:**
@@ -57,7 +57,7 @@ except Exception as e:
     logger.exception(e)
 ```
 
-That's it! `py-logex` automatically creates a `logging.yaml` config file and starts logging.
+That's it! `` automatically creates a `logging.yaml` config file and starts logging.
 
 ### Exception Logging Output
 
@@ -95,7 +95,7 @@ api_logger.warning("API rate limit approaching")
 
 ### Automatic Configuration
 
-When you first import `py-logex`, it automatically creates `logging.yaml` in your project root with sensible defaults:
+When you first import ``, it automatically creates `logging.yaml` in your project root with sensible defaults:
 
 ```yaml
 logger:
@@ -143,7 +143,7 @@ loggers:
 
 ### Configuration Discovery
 
-`py-logex` finds your configuration automatically using this priority:
+`` finds your configuration automatically using this priority:
 
 1. **Environment Variable**: `PYLOGEX_CONFIG=/path/to/logging.yaml`
 2. **Walk Up**: Searches parent directories for `logging.yaml`
@@ -154,7 +154,7 @@ loggers:
 
 ## 🛠️ CLI Tools
 
-`py-logex` includes command-line tools for managing configurations:
+`` includes command-line tools for managing configurations:
 
 ```bash
 # Show current configuration
@@ -300,7 +300,7 @@ Contributions are welcome! Here's how you can help:
 
 ```bash
 # Clone the repository
-git clone https://github.com/sherozshaikh/py-logex.git
+git clone https://github.com/sherozshaikh/.git
 cd py-logex
 
 # Create virtual environment
@@ -394,7 +394,7 @@ When reporting a bug, please include:
 
 - **Documentation**: [GitHub README](https://github.com/sherozshaikh/py-logex#readme)
 - **Issues**: [GitHub Issues](https://github.com/sherozshaikh/py-logex/issues)
-- **PyPI**: [https://pypi.org/project/py-logex/](https://pypi.org/project/py-logex/)
+- **PyPI**: [https://pypi.org/project/py-logex-enhanced/](https://pypi.org/project/py-logex-enhanced/)
 - **Email**: shaikh.sheroz07@gmail.com
 
 ---
