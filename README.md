@@ -410,7 +410,7 @@ If you find this project useful, please consider giving it a star on GitHub!
 ## 📊 Project Status
 
 - **Status**: Active Development
-- **Version**: 0.1.1
+- **Version**: 0.1.3
 - **Python**: 3.8, 3.9, 3.10, 3.11, 3.12
 - **License**: MIT
 
