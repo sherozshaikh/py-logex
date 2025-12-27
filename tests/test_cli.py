@@ -32,7 +32,7 @@ def test_cli_version(capsys):
 
     assert result == 0
     captured = capsys.readouterr()
-    assert "0.1.0" in captured.out
+    assert "0.1.3" in captured.out
 
 
 def test_cli_config_no_subcommand(capsys):
