@@ -68,7 +68,7 @@ def walk_up_find_file(
         Path to file if found, None otherwise
     """
     if start_path is None:
-        start_path = get_caller_path()
+        start_path = Path.cwd()
 
     current = start_path
     for _ in range(max_levels):
