@@ -57,7 +57,7 @@ except Exception as e:
     logger.exception(e)
 ```
 
-That's it! `` automatically creates a `logging.yaml` config file and starts logging.
+That's it! `py-logex-enhanced` automatically creates a `logging.yaml` config file and starts logging.
 
 ### Exception Logging Output
 
@@ -95,7 +95,7 @@ api_logger.warning("API rate limit approaching")
 
 ### Automatic Configuration
 
-When you first import ``, it automatically creates `logging.yaml` in your project root with sensible defaults:
+When you first import `py-logex-enhanced`, it automatically creates `logging.yaml` in your project root with sensible defaults:
 
 ```yaml
 logger:
@@ -143,7 +143,7 @@ loggers:
 
 ### Configuration Discovery
 
-`` finds your configuration automatically using this priority:
+`py-logex-enhanced` finds your configuration automatically using this priority:
 
 1. **Environment Variable**: `PYLOGEX_CONFIG=/path/to/logging.yaml`
 2. **Walk Up**: Searches parent directories for `logging.yaml`
@@ -154,7 +154,7 @@ loggers:
 
 ## 🛠️ CLI Tools
 
-`` includes command-line tools for managing configurations:
+`py-logex-enhanced` includes command-line tools for managing configurations:
 
 ```bash
 # Show current configuration
@@ -300,7 +300,7 @@ Contributions are welcome! Here's how you can help:
 
 ```bash
 # Clone the repository
-git clone https://github.com/sherozshaikh/.git
+git clone https://github.com/sherozshaikh/py-logex.git
 cd py-logex
 
 # Create virtual environment
@@ -349,10 +349,10 @@ flake8 py_logex tests
 
 ---
 
-## 🤔 Why py-logex?
+## 🤔 Why py-logex-enhanced?
 
-| Feature | Standard Logging | loguru | py-logex |
-|---------|-----------------|--------|----------|
+| Feature | Standard Logging | loguru | py-logex-enhanced |
+|---------|-----------------|--------|-------------------|
 | Simple API | ❌ | ✅ | ✅ |
 | YAML Config | ❌ | ❌ | ✅ |
 | Auto-discovery | ❌ | ❌ | ✅ |
@@ -382,7 +382,7 @@ Please report bugs on the [GitHub Issues](https://github.com/sherozshaikh/py-log
 
 When reporting a bug, please include:
 - Python version
-- py-logex version
+- py-logex-enhanced version
 - Operating system
 - Minimal code to reproduce the issue
 - Expected behavior
@@ -410,7 +410,7 @@ If you find this project useful, please consider giving it a star on GitHub!
 ## 📊 Project Status
 
 - **Status**: Active Development
-- **Version**: 0.1.0
+- **Version**: 0.1.1
 - **Python**: 3.8, 3.9, 3.10, 3.11, 3.12
 - **License**: MIT
 
