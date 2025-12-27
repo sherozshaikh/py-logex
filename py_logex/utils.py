@@ -61,7 +61,7 @@ def walk_up_find_file(
 
     Args:
         filename: Name of file to find
-        start_path: Starting directory (defaults to caller's directory)
+        start_path: Starting directory (defaults to current working directory)
         max_levels: Maximum number of parent directories to check
 
     Returns:
