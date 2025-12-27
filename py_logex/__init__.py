@@ -12,7 +12,7 @@ Usage:
         logger.exception(e)
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.2"
 
 from .logger import get_logger
 
