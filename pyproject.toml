@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "py-logex-enhanced"
-version = "0.1.0"
+version = "0.1.1"
 description = "Simple, powerful logging with built-in exception handling and YAML configuration"
 readme = "README.md"
 authors = [
