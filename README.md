@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-`[py-logex-enhanced](https://pypi.org/project/py-logex-enhanced/)` is a lightweight wrapper around [loguru](https://github.com/Delgan/loguru) that adds YAML-based configuration and enhanced exception handling, making it perfect for production environments.
+[py-logex-enhanced](https://pypi.org/project/py-logex-enhanced/) is a lightweight wrapper around [loguru](https://github.com/Delgan/loguru) that adds YAML-based configuration and enhanced exception handling, making it perfect for production environments.
 
 ---
 
