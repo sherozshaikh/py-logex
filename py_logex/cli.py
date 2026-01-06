@@ -1,12 +1,13 @@
 """Command-line interface for py_logex."""
 
-from . import __version__
-import yaml
-import sys
 import argparse
+import sys
 from pathlib import Path
 from typing import Optional
 
+import yaml
+
+from . import __version__
 from .config import get_config_manager
 from .defaults import get_default_yaml
 from .utils import get_script_name
@@ -22,7 +23,7 @@ def cmd_config_show(args) -> int:
         print(f"Exists: {config_path.exists()}")
 
         if config_path.exists():
-            print(f"\nConfiguration content:")
+            print("\nConfiguration content:")
             print("-" * 60)
             with open(config_path, "r") as f:
                 print(f.read())
@@ -39,7 +40,6 @@ def cmd_config_init(args) -> int:
     try:
         output_path = Path(args.output) if args.output else Path.cwd() / "logging.yaml"
 
-        # Check if file already exists
         if output_path.exists() and not args.force:
             print(
                 f"Error: {output_path} already exists. Use --force to overwrite.",
@@ -47,7 +47,6 @@ def cmd_config_init(args) -> int:
             )
             return 1
 
-        # Create config file
         script_name = args.name or get_script_name()
         config_content = get_default_yaml(script_name)
 
@@ -74,7 +73,6 @@ def cmd_config_validate(args) -> int:
 
         print(f"Validating: {config_path}")
 
-        # Try to load YAML
         with open(config_path, "r") as f:
             config = yaml.safe_load(f)
 
@@ -82,7 +80,6 @@ def cmd_config_validate(args) -> int:
             print("Warning: Configuration file is empty", file=sys.stderr)
             return 1
 
-        # Basic validation
         required_sections = ["logger"]
         missing = [s for s in required_sections if s not in config]
 
@@ -109,18 +106,16 @@ def main(argv: Optional[list] = None) -> int:
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
+    subparsers.add_parser("version", help="Show version")
 
-    # Config command
     config_parser = subparsers.add_parser("config", help="Manage configuration")
     config_subparsers = config_parser.add_subparsers(dest="subcommand")
 
-    # config show
     show_parser = config_subparsers.add_parser(
         "show", help="Show current configuration"
     )
     show_parser.set_defaults(func=cmd_config_show)
 
-    # config init
     init_parser = config_subparsers.add_parser(
         "init", help="Initialize new configuration file"
     )
@@ -133,34 +128,26 @@ def main(argv: Optional[list] = None) -> int:
     )
     init_parser.set_defaults(func=cmd_config_init)
 
-    # config validate
     validate_parser = config_subparsers.add_parser(
         "validate", help="Validate configuration file"
     )
     validate_parser.add_argument("-c", "--config", help="Config file to validate")
     validate_parser.set_defaults(func=cmd_config_validate)
 
-    # Version command
-    version_parser = subparsers.add_parser("version", help="Show version")
-
     args = parser.parse_args(argv)
 
-    # Handle version
     if args.command == "version":
         print(f"py_logex version {__version__}")
         return 0
 
-    # Handle no command
     if args.command is None:
         parser.print_help()
         return 0
 
-    # Handle config without subcommand
     if args.command == "config" and args.subcommand is None:
         config_parser.print_help()
         return 0
 
-    # Execute subcommand
     if hasattr(args, "func"):
         return args.func(args)
 

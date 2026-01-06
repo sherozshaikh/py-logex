@@ -1,10 +1,6 @@
 """Tests for exception handling."""
 
-import pytest
-from py_logex.exceptions import (
-    ExceptionFormatter,
-    format_exception_for_logging,
-)
+from py_logex.exceptions import ExceptionFormatter, format_exception_for_logging
 
 
 def test_format_exception_basic():
@@ -59,7 +55,7 @@ def test_get_exception_context():
 def test_exception_context_with_code():
     """Test that exception context includes code snippet."""
     try:
-        result = int("not a number")
+        int("not a number")
     except Exception as e:
         context = ExceptionFormatter.get_exception_context(e)
 
@@ -171,9 +167,7 @@ def test_exception_context_file_name_only():
     except Exception as e:
         context = ExceptionFormatter.get_exception_context(e)
 
-        # Should have filename without path
         assert context["file"] is not None
         assert "/" not in context["file"] or context["file"].count("/") == 0
 
-        # But full path should be available
         assert context["full_path"] is not None

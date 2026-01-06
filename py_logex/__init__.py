@@ -12,11 +12,10 @@ Usage:
         logger.exception(e)
 """
 
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 
 from .logger import get_logger
 
-# Auto-initialize default logger for simple import
 logger = get_logger()
 
 __all__ = [

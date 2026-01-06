@@ -1,10 +1,10 @@
 """Tests for configuration discovery."""
 
-import os
-import pytest
-from pathlib import Path
-import tempfile
 import shutil
+import tempfile
+from pathlib import Path
+
+import pytest
 
 from py_logex.config import ConfigManager
 from py_logex.defaults import get_default_yaml
@@ -58,15 +58,12 @@ def test_discover_config_env_var_not_found(temp_dir, config_manager, monkeypatch
 
 def test_discover_config_walk_up(temp_dir, config_manager, monkeypatch):
     """Test config discovery by walking up directory tree."""
-    # Create nested structure
     nested = temp_dir / "src" / "utils"
     nested.mkdir(parents=True)
 
-    # Put config at root
     config_file = temp_dir / "logging.yaml"
     config_file.write_text(get_default_yaml("test"))
 
-    # Change to nested directory
     monkeypatch.chdir(nested)
 
     config_path = config_manager.discover_config()
@@ -78,7 +75,6 @@ def test_discover_config_common_locations(temp_dir, config_manager, monkeypatch)
     """Test config discovery from common locations."""
     monkeypatch.chdir(temp_dir)
 
-    # Create config in config/ subdirectory
     config_dir = temp_dir / "config"
     config_dir.mkdir()
     config_file = config_dir / "logging.yaml"

@@ -1,11 +1,13 @@
 """Tests for CLI functionality."""
 
-import pytest
-from pathlib import Path
-import tempfile
 import shutil
+import tempfile
+from pathlib import Path
 
-from py_logex.cli import main, cmd_config_show, cmd_config_init, cmd_config_validate
+import pytest
+
+from py_logex import __version__
+from py_logex.cli import cmd_config_init, cmd_config_show, cmd_config_validate, main
 from py_logex.defaults import get_default_yaml
 
 
@@ -32,7 +34,7 @@ def test_cli_version(capsys):
 
     assert result == 0
     captured = capsys.readouterr()
-    assert "0.1.3" in captured.out
+    assert __version__ in captured.out
 
 
 def test_cli_config_no_subcommand(capsys):

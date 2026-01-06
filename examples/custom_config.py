@@ -7,6 +7,7 @@ and environment variables.
 
 import os
 from pathlib import Path
+
 from py_logex import get_logger
 
 # Example 1: Using environment variable
@@ -30,7 +31,8 @@ logger.info("Original configuration")
 # Create a new config on the fly
 new_config = Path("./new_logging.yaml")
 if not new_config.exists():
-    new_config.write_text("""
+    new_config.write_text(
+        """
 defaults:
   level: DEBUG
   console:
@@ -40,7 +42,8 @@ defaults:
 logger:
   file: reconfigured.log
   level: DEBUG
-""")
+"""
+    )
 
 logger.set_config(new_config)
 logger.debug("After reconfiguration - this debug message should now appear")

@@ -2,15 +2,16 @@
 
 import os
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
+
 import yaml
 
 from .defaults import get_default_yaml
 from .utils import (
+    ensure_directory_exists,
+    get_common_config_locations,
     get_script_name,
     walk_up_find_file,
-    get_common_config_locations,
-    ensure_directory_exists,
 )
 
 
@@ -37,7 +38,6 @@ class ConfigManager:
         Returns:
             Path to configuration file
         """
-        # Level 1: Environment variable
         env_config = os.environ.get(self.ENV_VAR)
         if env_config:
             path = Path(env_config)
@@ -48,17 +48,14 @@ class ConfigManager:
                     f"{self.ENV_VAR} points to non-existent file: {env_config}"
                 )
 
-        # Level 2: Walk up directory tree
         walked_config = walk_up_find_file(self.CONFIG_FILENAME)
         if walked_config:
             return walked_config
 
-        # Level 3: Common locations
         for location in get_common_config_locations(self.CONFIG_FILENAME):
             if location.exists():
                 return location
 
-        # Level 4: Create default in current directory
         default_path = Path.cwd() / self.CONFIG_FILENAME
         self._create_default_config(default_path)
         return default_path
@@ -135,7 +132,6 @@ class ConfigManager:
         config = self.get_config()
         logger_config = config.get("logger", {})
 
-        # Apply defaults for missing values
         defaults = {
             "file": f"{get_script_name()}.log",
             "level": "INFO",
@@ -146,24 +142,20 @@ class ConfigManager:
             "console": {"enabled": True, "level": "INFO"},
         }
 
-        # Merge logger_config with defaults
         result = defaults.copy()
 
         for key, value in logger_config.items():
             if key == "console" and isinstance(value, dict):
-                # Merge console settings
                 result["console"] = {**defaults["console"], **value}
             elif value is not None:
                 result[key] = value
 
-        # Replace {script_name} if present in file path
         if "{script_name}" in result["file"]:
             result["file"] = result["file"].replace("{script_name}", get_script_name())
 
         return result
 
 
-# Global config manager instance
 _config_manager = ConfigManager()
 
 

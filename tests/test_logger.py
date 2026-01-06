@@ -1,47 +1,48 @@
 """Tests for logger functionality."""
 
-import sys
-import pytest
-from pathlib import Path
-import tempfile
 import shutil
+import sys
+import tempfile
 import time
+from pathlib import Path
 
-from py_logex import logger, get_logger
-from py_logex.defaults import get_default_yaml
+import pytest
+
+from py_logex import get_logger, logger
 
 
 @pytest.fixture(autouse=True)
 def reset_loggers():
     """Reset logger singletons between tests."""
-    import py_logex.logger
-    import py_logex.config
     from loguru import logger as loguru_logger
 
-    # BEFORE test: Clean slate
+    logger_module = sys.modules.get("py_logex.logger")
+    if logger_module is None:
+        import py_logex.logger as logger_module
+
+    import py_logex.config
+
     try:
         loguru_logger.remove()
     except ValueError:
         pass
 
-    py_logex.logger._default_logger = None
-    py_logex.logger._configured = False
+    logger_module._default_logger = None
+    logger_module._handler_ids.clear()
     py_logex.config._config_manager = py_logex.config.ConfigManager()
 
     yield
 
-    # AFTER test: Force cleanup
     try:
         loguru_logger.remove()
     except ValueError:
         pass
 
-    # Force flush any pending writes
     sys.stdout.flush()
     sys.stderr.flush()
 
-    py_logex.logger._default_logger = None
-    py_logex.logger._configured = False
+    logger_module._default_logger = None
+    logger_module._handler_ids.clear()
     py_logex.config._config_manager = py_logex.config.ConfigManager()
 
 
@@ -156,16 +157,16 @@ def test_logger_reconfigure(temp_dir, test_config, monkeypatch):
 
     test_logger = get_logger(config_path=test_config)
     test_logger.info("Before reconfigure")
-
-    # Create new config
     new_config = temp_dir / "new_logging.yaml"
-    new_config.write_text("""
+    new_config.write_text(
+        """
     logger:
       file: new_test.log
       level: ERROR
       console:
         enabled: false
-    """)
+    """
+    )
     test_logger.set_config(new_config)
     test_logger.error("After reconfigure")
 
@@ -201,7 +202,6 @@ def test_logger_catch_decorator(temp_dir, test_config, monkeypatch):
     def risky_function():
         raise RuntimeError("Something went wrong")
 
-    # Should catch and log exception
     risky_function()
 
     test_logger.complete()
@@ -223,5 +223,4 @@ def test_console_disabled(temp_dir, test_config, monkeypatch, capsys):
     time.sleep(0.1)
 
     captured = capsys.readouterr()
-    # Console is disabled in test_config
     assert "This should not appear in console" not in captured.out
